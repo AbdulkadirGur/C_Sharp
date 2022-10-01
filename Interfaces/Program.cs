@@ -8,11 +8,28 @@ namespace Interfaces
         static void Main(string[] args)
         {
             //InterfacesIntro();
-            CustomerManager customerManager = new CustomerManager();
+            //Demo();
+            ICustomerDal[] customerDals = new ICustomerDal[2]
+            {
+                new SqlServerCustomerDal(),
+                new OracleCustomerDal()
 
-            customerManager.Add(new OracleCustomerDal());
+            };
+            foreach (ICustomerDal customerDal in customerDals)
+            {
+                customerDal.Add();
+            }
+            
+            
             Console.ReadLine();
         }
+
+        private static void Demo()
+        {
+            CustomerManager customerManager = new CustomerManager();
+            customerManager.Add(new OracleCustomerDal());
+        }
+
         private static void InterfacesIntro()
         {
             PersonManager manager = new PersonManager();
